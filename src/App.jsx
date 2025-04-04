@@ -9,6 +9,8 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import ResourcePage from "./pages/ResourcePage";
+import InterviewForm from "./pages/InterviewFormPage";
+
 
 import {
   createBrowserRouter,
@@ -53,14 +55,14 @@ function App() {
       path: "/home",
       element: <HomePage />,
     },
-    // {
-    //   path: "/start-interview",
-    //   element: (
-    //     <PrivateRoute>
-    //       <InterviewForm />
-    //     </PrivateRoute>
-    //   ),
-    // },
+    {
+      path: "/start-interview",
+      element: (
+        <PrivateRoute>
+          <InterviewForm />
+        </PrivateRoute>
+      ),
+    },
     {
       path: "/",
       element: <Layout />,
