@@ -14,7 +14,7 @@ import {
   import Feature from "../components/Feature";
   import Footer from "../components/Footers";
   import Navbar from "../components/navbar";
-  //import { useNavigate } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
   
   const HomePage = () => {
     return (
@@ -48,7 +48,7 @@ import {
   
   // Hero Section Component
   const HeroSection = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     return (
       <section className="bg-gradient-to-br from-blue-900 via-indigo-600 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
@@ -64,7 +64,7 @@ import {
               <div className="flex flex-wrap gap-4">
                 <button
                   className="bg-white text-blue-800 hover:bg-blue-50 px-6 py-3 rounded-full font-bold shadow-lg transition flex items-center"
-                  //onClick={() => navigate("/get-started")}
+                  onClick={() => navigate("/get-started")}
                 >
                   Start Practicing <ArrowRight className="ml-2 h-5 w-5" />
                 </button>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +49,7 @@ const Navbar = () => {
               }
               ${"px-6 py-2.5 md:block hidden"}
             `}
-              //onClick={() => navigate("/get-started")}
+              onClick={() => navigate("/get-started")}
             >
               <span className="md:inline">Get Started</span>
               <ArrowRight className="inline ml-1 h-5 w-5" />
@@ -63,7 +63,7 @@ const Navbar = () => {
                   : "bg-white text-sky-800 hover:bg-sky-50 hover:shadow-lg"
               }
             `}
-              //onClick={() => navigate("/get-started")}
+              onClick={() => navigate("/get-started")}
             >
               <ArrowRight className="h-5 w-5" />
             </button>
