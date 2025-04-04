@@ -1,12 +1,31 @@
 
+//import { Loader } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
-import { Button } from "@/components/ui/button"
-import HomePage from "./pages/Homepage"
+import HomePage from "./pages/HomePage";
 
-const App = ()=>{
+
+import {
+  createBrowserRouter,
+  //Navigate,
+  RouterProvider,
+} from "react-router-dom";
+
+const App = () => {
+
+  const router = createBrowserRouter([
+    
+    {
+      path: "/home",
+      element: <HomePage />,
+    }
+  ]);
   return (
-    <HomePage/>
-  )
+    <div>
+      <RouterProvider router={router} />
+      <Toaster />
+    </div>
+  );
 }
 
-export default App
+export default App;
