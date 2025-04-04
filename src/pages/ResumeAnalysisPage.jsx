@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import UploadZone from '../components/ResumeAnalyser/UploadZone';
 import AnalysisStatus from '../components/ResumeAnalyser/AnalysisStatus';
 import ResultTabs from '../components/ResumeAnalyser/ResultTabs';
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function ResumeAnalysisPage() {
   const [file, setFile] = useState(null);
@@ -13,6 +14,7 @@ export default function ResumeAnalysisPage() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
+  const {updateScore} = useAuthStore()
   
   // Mock analysis results
   const [analysisResults, setAnalysisResults] = useState({
@@ -105,7 +107,9 @@ export default function ResumeAnalysisPage() {
       if (!atsResponse.ok) throw new Error(atsData.message);
   
       const score = parseInt(atsData.atsScore, 10);
+
       // console.log('🎯 ATS Score:', score);
+      updateScore({ atsScore: score })
 
       const feedbackRes = await fetch('/api/resume/resume-feedback', {
         method: 'POST',
