@@ -1,18 +1,21 @@
 import { useEffect } from "react";
-//import { Loader } from "lucide-react";
+import { useAuthStore } from "./store/useAuthStore";
+import { Loader } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import { Navigate } from "react-router-dom";
-import { useAuthStore } from "./store/useAuthStore";
+import Layout from "./Layout";
 
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
+import ResourcePage from "./pages/ResourcePage";
 
 import {
   createBrowserRouter,
-  //Navigate,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
+import PortalPage from "./pages/PortalPage";
 
 
 // Redirect logged-in users from public pages
@@ -22,13 +25,20 @@ function PublicRoute({ children }) {
   return authUser ? <Navigate to="/" replace /> : children;
 }
 
-const App = () => {
+// Protect routes that require authentication
+function PrivateRoute({ children }) {
+  const { authUser } = useAuthStore();
+  return authUser ? children : <Navigate to="/home" replace />;
+}
 
+function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  //console.log({ authUser });
 
   const router = createBrowserRouter([
     {
@@ -42,15 +52,54 @@ const App = () => {
     {
       path: "/home",
       element: <HomePage />,
-    }
+    },
+    // {
+    //   path: "/start-interview",
+    //   element: (
+    //     <PrivateRoute>
+    //       <InterviewForm />
+    //     </PrivateRoute>
+    //   ),
+    // },
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "resources",
+          element: (
+            <PrivateRoute>
+              <ResourcePage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "portal",
+          element: (
+            <PrivateRoute>
+              <PortalPage />
+            </PrivateRoute>
+          ),
+        },
+      ],
+    },
   ]);
 
   if (isCheckingAuth && !authUser)
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <Loader className="size-10 animate-spin" />
-    </div>
-  );
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
+
   return (
     <div>
       <RouterProvider router={router} />
