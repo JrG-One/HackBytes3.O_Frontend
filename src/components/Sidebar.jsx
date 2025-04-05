@@ -31,6 +31,11 @@ const items = [
     url: "/portal",
     icon: GraduationCap,
   },
+  {
+    title: "Resume Analyser",
+    url: "/analyser",
+    icon: GraduationCap,
+  },
 ];
 
 export function AppSidebar({ open }) {

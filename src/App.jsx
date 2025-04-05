@@ -20,6 +20,7 @@ import {
 import PortalPage from "./pages/PortalPage";
 
 
+
 // Redirect logged-in users from public pages
 function PublicRoute({ children }) {
   const { authUser } = useAuthStore();
@@ -88,6 +89,14 @@ function App() {
           element: (
             <PrivateRoute>
               <PortalPage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "analyser",
+          element: (
+            <PrivateRoute>
+              <ResumeAnalysisPage />
             </PrivateRoute>
           ),
         },
