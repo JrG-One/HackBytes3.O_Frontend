@@ -124,7 +124,7 @@ npm install -g vite
 
 # Run development server
 npm run dev
-
+```
 ##  Contributors
 
 ###  Team HackOps
