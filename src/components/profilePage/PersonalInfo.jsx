@@ -88,21 +88,21 @@ const PersonalInfo = ({ atsScore }) => {
                               : "#f56565"
                           }
                           strokeWidth="4"
-                          strokeDasharray={`${atsScore}, 100`}
+                          strokeDasharray={`${authUser.atsScore}, 100`}
                         />
                       </svg>
                       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-                        <span className="text-xl font-bold">{atsScore}</span>
+                        <span className="text-xl font-bold">{authUser.atsScore}</span>
                       </div>
                     </div>
                     <div className="ml-4">
                       <p className="text-sm text-gray-600">
                         Resume strength is{" "}
-                        {atsScore >= 80
+                        {authUser.atsScore >= 80
                           ? "excellent"
-                          : atsScore >= 70
+                          : authUser.atsScore >= 70
                           ? "good"
-                          : atsScore >= 60
+                          : authUser.atsScore >= 60
                           ? "average"
                           : "needs improvement"}
                       </p>

@@ -7,6 +7,7 @@ const BASE_URL =
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
+  atsScore:0,
   isSigningUp: false,
   isLoggingIng: false,
   isUpdatingProfile: false,
@@ -74,4 +75,24 @@ export const useAuthStore = create((set, get) => ({
       set({ isUpdatingProfile: false });
     }
   },
+
+  updateScore: async (data) => {
+    try {
+      const res = await axiosInstance.put('/user/update-ats-score', data);
+      set((state) => ({
+        authUser: {
+          ...state.authUser,
+          atsScore: res.data.atsScore,
+        },
+      }));
+    } catch (error) {
+      console.log("Error updating score:", error);
+      toast({
+        title: error?.response?.data?.error || "Failed to update ATS score",
+        variant: "destructive",
+      });
+    }
+  },
+  
+
 }));

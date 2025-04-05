@@ -1,3 +1,4 @@
+import { useInterviewStore } from "@/store/useInterviewStore";
 import React, { useRef, useEffect, useState } from 'react';
 import {
   ResizableHandle,
@@ -7,7 +8,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronRight, CircleX, Send, Clock, Check, AlertTriangle } from "lucide-react";
+import { ChevronRight, CircleX, Send,  Clock, Check, AlertTriangle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
@@ -15,50 +16,35 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // This component would be used with your existing store
 const InterviewPage = () => {
+  const {
+    conversation,
+    isTyping,
+    generatingResponse,
+    nextQuestionReady,
+    interviewShouldEnd,
+    sendMessage,
+    generateNextQuestion,
+    endInterview,
+  } = useInterviewStore();
+
   const [userInput, setUserInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const [defaultLayout, setDefaultLayout] = useState([50, 50]);
-  
-  // These would come from your useInterviewStore hook
-  const conversation = [
-    { id: 1, role: "assistant", content: "Hello! I'll be conducting your interview today. Let's get started with the first question." },
-    { id: 2, role: "assistant", content: "Tell me about your experience with React and state management libraries." },
-    { id: 3, role: "user", content: "I've been working with React for about 3 years now. I'm familiar with Redux, Context API, and recently I've been using Zustand for simpler state management." }
-  ];
-  
-  const nextQuestionReady = true;
-  const interviewShouldEnd = false;
-  const generatingResponse = false;
-  
-  const generateNewQuestion = () => {
-    // This would call your actual store function
-    console.log("Generating new question");
-  };
-  
-  const sendMessage = (e) => {
+  const messageEndRef = useRef(null);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!userInput.trim()) return;
-    
-    // This would call your actual store function
-    console.log("Sending message:", userInput);
-    setIsTyping(true);
-    
-    // Simulate response delay
-    setTimeout(() => {
-      setIsTyping(false);
-      setUserInput("");
-    }, 2000);
+    sendMessage(userInput);
+    setUserInput("");
   };
 
-  const messageEndRef = useRef(null);
-  
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [conversation]);
 
+
   return (
+  
     <div className="h-screen flex flex-col bg-background">
       <header className="p-4 border-b flex justify-between items-center bg-background/95 backdrop-blur supports-backdrop-blur:bg-background/60">
         <div className="flex items-center gap-2">
@@ -71,7 +57,7 @@ const InterviewPage = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={generateNewQuestion}
+                  onClick={generateNextQuestion}
                   disabled={!nextQuestionReady}
                   variant={nextQuestionReady ? "default" : "outline"}
                   className="transition-all duration-300"
@@ -92,10 +78,7 @@ const InterviewPage = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={() => {
-                    // end interview logic here
-                    console.log("End interview clicked");
-                  }}
+                  onClick={endInterview}
                   disabled={!interviewShouldEnd}
                   variant={interviewShouldEnd ? "destructive" : "outline"}
                   className="transition-all duration-300"
