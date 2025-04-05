@@ -55,6 +55,10 @@ function App() {
       ),
     },
     {
+      path: "/",
+      element: <HomePage />,
+    },
+    {
       path: "/home",
       element: <HomePage />,
     },
