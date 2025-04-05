@@ -1,4 +1,3 @@
-
 // src/components/ResumeAnalyzer/AnalysisStatus.jsx
 import React from 'react';
 import { FileText, CheckCircle, RotateCcw } from 'lucide-react';
@@ -35,13 +34,13 @@ const AnalysisStatus = ({ file, isAnalyzing, handleReupload }) => {
           </Alert>
         )}
       </CardContent>
-      <CardFooter className="justify-between">
+      {/* <CardFooter className="justify-between">
         <Button variant="outline" onClick={handleReupload} className="flex items-center">
           <RotateCcw className="mr-2 h-4 w-4" />
           Upload Another Resume
         </Button>
         <Button disabled={isAnalyzing}>Download Full Report</Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };

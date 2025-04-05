@@ -1,5 +1,3 @@
-
-
 // src/components/ResumeAnalyzer/ResultTabs/index.jsx
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -22,9 +20,9 @@ const ResultTabs = ({ analysisResults }) => {
       
       <TabsContent value="feedback">
         <FeedbackTab 
-          strengths={analysisResults.strengths} 
-          improvements={analysisResults.improvements} 
-        />
+            strengths={analysisResults.strengths}
+            improvements={analysisResults.improvements}       
+         />
       </TabsContent>
       
       <TabsContent value="keywords">
