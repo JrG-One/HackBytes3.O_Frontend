@@ -40,26 +40,24 @@ src/
 │
 ├── components/                 # Reusable UI components
 │   ├── profilePage/            # Components for profile dashboard
-│   │   ├── InterviewStats.jsx      # Graphs/stats of interview performance
-│   │   └── PersonalInfo.jsx        # User profile data section
+│   │   ├── InterviewStats.jsx  # Graphs/stats of interview performance
+│   │   └── PersonalInfo.jsx    # User profile data section
 │   │
 │   ├── ResumeAnalyser/         # Resume analysis related components
-│   │   ├── UploadZone.jsx          # Upload drag-n-drop zone
-│   │   ├── AnalysisStatus.jsx      # Displays resume scanning status
-│   │   └── ResultTabs/            
-│   │   └── ResultTabs/            
-│   │       └──  FeedbackTabs.jsx  # Tabs for detailed resume feedback
-│   │       └──  index.jsx         # Merges all the result features
-│   │       └──  KeywordTabs.jsx   # Provides tips according to resume
-│   │       └──  OverviewTabs.jsx  # Gives an overview about the resume ats score
-|   |
+│   │   ├── UploadZone.jsx      # Upload drag-n-drop zone
+│   │   ├── AnalysisStatus.jsx  # Displays resume scanning status
+│   │   └── ResultTabs/         
+│   │       ├── FeedbackTabs.jsx # Tabs for detailed resume feedback
+│   │       ├── index.jsx        # Merges all the result features
+│   │       ├── KeywordTabs.jsx  # Provides tips according to resume
+│   │       └── OverviewTabs.jsx # Gives an overview about the resume ats score
 │   │
 │   ├── ui/                     # Generic interface components
-│   │   ├── Feature.jsx             # Feature section on homepage
-│   │   ├── Footers.jsx             # Footer for layout
-│   │   ├── Navbar.jsx              # Top navbar with links
-│   │   ├── Sidebar.jsx             # Sidebar navigation in dashboard
-│   │   └── Testimonial.jsx         # User feedback/testimonial cards
+│   │   ├── Feature.jsx         # Feature section on homepage
+│   │   ├── Footers.jsx         # Footer for layout
+│   │   ├── Navbar.jsx          # Top navbar with links
+│   │   ├── Sidebar.jsx         # Sidebar navigation in dashboard
+│   │   └── Testimonial.jsx     # User feedback/testimonial cards
 │
 ├── pages/                      # Route pages
 │   ├── HomePage.tsx
@@ -70,8 +68,8 @@ src/
 │   └── ResourcePage.tsx
 │
 ├── services/                   # API call logic
-│   ├── interviewService.ts        # Handles all interview-related endpoints
-│   └── authService.ts             # Handles login/signup calls
+│   ├── interviewService.ts     # Handles all interview-related endpoints
+│   └── authService.ts          # Handles login/signup calls
 │
 ├── store/                      # Zustand-based state management
 │   └── useAuthStore.ts
@@ -81,8 +79,6 @@ src/
 ├── Layout.tsx                  # Main layout wrapper
 ├── App.tsx                     # Root component with all routes
 └── main.tsx                    # App entry point (Vite)
-
-
 
 ---
 
