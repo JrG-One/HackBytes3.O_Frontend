@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useFormStore } from "../store/useFormStore";
+import { ChevronLeft } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -59,8 +60,17 @@ const InterviewForm = () => {
   }
 
   return (
+    <>
     <div className="h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <Button
+        onClick={() => navigate("/portal")}
+        variant="outline"
+        size="icon"
+        className="absolute top-4 left-4"
+        >
+            <ChevronLeft />
+        </Button>
         <h2 className="text-2xl font-semibold mb-6 text-center">Interview Form</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -148,6 +158,7 @@ const InterviewForm = () => {
         </Form>
       </div>
     </div>
+    </>
   );
 };
 
