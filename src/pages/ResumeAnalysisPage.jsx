@@ -227,7 +227,7 @@ export default function ResumeAnalysisPage() {
         <div className="space-y-6">
           <AnalysisStatus 
             file={file}
-            isAnalyzing={isAnalyzing}
+            analysisComplete={analysisComplete}
             handleReupload={handleReupload}
           />
           
