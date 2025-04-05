@@ -46,11 +46,7 @@ const AnalysisStatus = ({ file, analysisComplete, handleReupload }) => {
           <RotateCcw className="mr-2 h-4 w-4" />
           Upload Another Resume
         </Button>
-<<<<<<< Updated upstream
-        <Button disabled={isAnalyzing}>Download Full Report</Button>
-=======
         {/* <Button disabled={isAnalyzing}>Download Full Report</Button> */}
->>>>>>> Stashed changes
       </CardFooter>
     </Card>
   );
