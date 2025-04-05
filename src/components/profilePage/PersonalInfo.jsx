@@ -3,11 +3,12 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import defaultAvatar from '@/assets/profile.png';
 
 const PersonalInfo = ({ atsScore }) => {
     const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
     const [selectedImg, setSelectedImg] = useState(null);
-    const fileInputRef = useRef(null); // 👈 create a ref for input
+    const fileInputRef = useRef(null);
   
     const handleImageUpload = async (e) => {
       const file = e.target.files[0];
@@ -35,8 +36,10 @@ const PersonalInfo = ({ atsScore }) => {
             <div className="flex flex-col gap-6">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-20 w-20">
-                  <AvatarImage src={authUser.profilePic} />
-                  <AvatarFallback>VC</AvatarFallback>
+                <AvatarImage src={authUser.profilePic || defaultAvatar} />
+                <AvatarFallback>
+                    <img src={defaultAvatar} alt="default avatar" className="h-full w-full object-cover rounded-full" />
+                </AvatarFallback>
                 </Avatar>
                 <div>
                   <h4 className="text-lg font-semibold">{authUser.username}</h4>
