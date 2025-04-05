@@ -5,35 +5,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, Clock } from "lucide-react";
 import { useInterviewStore } from "@/store/useInterviewStore";
 
-const ResponsePanel = (defaultSize) => {
+const ResponsePanel = ({ defaultSize = 50 }) => {
   const [userInput, setUserInput] = useState("");
+  const { sendMessage, generatingResponse } = useInterviewStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!userInput.trim()) return;
-    sendMessage(userInput);
-    setUserInput("");
+    sendMessage(userInput); // pass string, not event
+    setUserInput(""); // clear textarea
   };
-  const { sendMessage, generatingResponse } = useInterviewStore();
 
   return (
     <>
       <ResizableHandle withHandle />
       
-      <ResizablePanel defaultSize={Number(defaultSize) || 50}minSize={30}>
+      <ResizablePanel defaultSize={Number(defaultSize)} minSize={30}>
         <div className="flex flex-col h-full">
           <div className="p-3 border-b">
             <h2 className="text-sm font-medium">Your Response</h2>
           </div>
           <div className="flex flex-col h-full p-4">
-            <form 
-              onSubmit={sendMessage} 
-              className="flex flex-col h-full"
-            >
+            <form onSubmit={handleSubmit} className="flex flex-col h-full">
               <div className="flex-1">
                 <Textarea
                   placeholder="Type your response here..."
-                  className="resize-none h-full min-h-[12rem]"
+                  className="resize-none min-h-[12rem] max-h-[35rem] overflow-auto"
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   disabled={generatingResponse}

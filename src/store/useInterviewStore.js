@@ -115,10 +115,11 @@ Use <<END_INTERVIEW>> to end the interview.
   },
 
   sendMessage: async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
+    if (!event || event.trim() === "") return;
     set({ generatingResponse: true });
 
-    const userMessage = event.target.querySelector("textarea").value;
+    const userMessage = event.trim();
     const { conversation } = get();
 
     const hasSystemMessage = conversation.some(
