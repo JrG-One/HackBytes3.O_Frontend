@@ -1,4 +1,4 @@
-import { Home, LogOut, Book, GraduationCap } from "lucide-react";
+import { Home, LogOut, Book, GraduationCap, SearchCodeIcon } from "lucide-react";
 
 import {
   Sidebar,
@@ -34,12 +34,7 @@ const items = [
   {
     title: "Resume Analyser",
     url: "/analyser",
-    icon: GraduationCap,
-  },
-  {
-    title: "Inter",
-    url: "/interview",
-    icon: GraduationCap,
+    icon: SearchCodeIcon,
   },
 ];
 
@@ -47,13 +42,13 @@ export function AppSidebar({ open }) {
   const { logout } = useAuthStore();
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className={`w-auto`}>
       <SidebarHeader>
-        <div className={`flex gap-2 ${open ? "p-2" : ""} items-center`}>
+        <div className={` flex gap-2 ${open ? "p-2" : ""} items-center`}>
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-md">
-            <span className="text-white font-bold text-md">IW</span>
+            <span className="text-white font-bold text-md">MX</span>
           </div>
-          {open ? <span>Interview Whiz</span> : ""}
+          {open ? <span>mockXpert</span> : ""}
         </div>
       </SidebarHeader>
       <SidebarContent>

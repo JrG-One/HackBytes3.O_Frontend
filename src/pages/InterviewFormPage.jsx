@@ -1,5 +1,4 @@
 "use client";
-
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,8 +21,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useFormStore } from "../store/useFormStore";
+// import { useFormStore } from "../store/useFormStore";
 import { ChevronLeft } from "lucide-react";
+import { useInterviewStore } from "../store/useInterviewStore";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -48,7 +48,7 @@ const InterviewForm = () => {
     },
   });
 
-  const { setFormData } = useFormStore();
+  const { setFormData } = useInterviewStore();
 
   function onSubmit(values) {
     const updatedValues = {

@@ -22,8 +22,8 @@ const InterviewStats = ({ interviews }) => {
     };
   });
 
-  const averageScore = interviews.reduce((sum, interview) => sum + interview.score, 0) / interviews.length;
-  const highestScore = Math.max(...interviews.map(interview => interview.score));
+  const averageScore = interviews.reduce((sum, interview) => sum + interview.score*10, 0) / interviews.length;
+  const highestScore = Math.max(...interviews.map(interview => interview.score*10));
 
   return (
     <Card>
@@ -109,11 +109,11 @@ const InterviewStats = ({ interviews }) => {
                             : "bg-red-500"
                         }
                       >
-                        {interview.score}
+                        {interview.score*10}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Button>{interview.actions}</Button>
+                    <Button onClick={() => window.open(interview.pdfReport, "_blank")}>{interview.actions}</Button>
                     </TableCell>
                   </TableRow>
                 ))}
