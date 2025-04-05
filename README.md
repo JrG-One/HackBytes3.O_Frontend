@@ -17,9 +17,10 @@ MockXpert is an intelligent web platform designed to simulate real-life intervie
 
 This project is ideal for students, professionals, and job seekers who want to sharpen their interview skills through realistic, data-driven mock sessions.
 
----
 
-## 🧾 Features
+
+##  Features
+```
 
 | Feature              | Description                                                                 |
 |----------------------|-----------------------------------------------------------------------------|
@@ -31,9 +32,11 @@ This project is ideal for students, professionals, and job seekers who want to s
 | User Dashboard        | Central hub with personalized performance summaries                         |
 | UI Components         | Reusable modular components with Tailwind CSS and Radix UI                  |
 
----
+```
+
 
 ## Folder Structure (Frontend)
+```
 
 src/
 ├── assets/                     # Images, logos, icons
@@ -80,12 +83,13 @@ src/
 ├── App.tsx                     # Root component with all routes
 └── main.tsx                    # App entry point (Vite)
 
----
+```
 
 ## ⚙️ Tech Stack
 
 ### 💻 Frontend
-- **React.js** + **TypeScript**
+- **React.js**
+- **Shadcn/UI**
 - **Vite** as bundler
 - **Tailwind CSS** for styling
 - **Radix UI** for accessible UI primitives
