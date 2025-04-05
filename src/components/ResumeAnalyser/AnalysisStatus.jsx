@@ -1,4 +1,3 @@
-
 // src/components/ResumeAnalyzer/AnalysisStatus.jsx
 import React from 'react';
 import { useState } from 'react';
