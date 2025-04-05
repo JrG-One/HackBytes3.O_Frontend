@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import ResourcePage from "./pages/ResourcePage";
+import ResumeAnalysisPage from "./pages/ResumeAnalysisPage";
 
 import {
   createBrowserRouter,
@@ -16,6 +17,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import PortalPage from "./pages/PortalPage";
+
 
 
 // Redirect logged-in users from public pages
@@ -86,6 +88,14 @@ function App() {
           element: (
             <PrivateRoute>
               <PortalPage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "analyser",
+          element: (
+            <PrivateRoute>
+              <ResumeAnalysisPage />
             </PrivateRoute>
           ),
         },
