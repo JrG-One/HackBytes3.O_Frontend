@@ -50,17 +50,14 @@ export default function ResumeAnalysisPage() {
     handleFiles(files);
   };
   
-  // Handle file input change
   const handleFileChange = (e) => {
     const files = e.target.files;
     handleFiles(files);
   };
   
-  // Process files
   const handleFiles = (files) => {
     if (files.length > 0) {
       const selectedFile = files[0];
-      // Check if file is PDF
       if (selectedFile.type === 'application/pdf') {
         setFile(selectedFile);
         setIsUploaded(true);
@@ -71,37 +68,132 @@ export default function ResumeAnalysisPage() {
     }
   };
   
-  // Mock analyze function
-  const analyzeResume = (file) => {
+  const analyzeResume = async (file) => {
     setIsAnalyzing(true);
-    
-    // Simulate analysis process
-    setTimeout(() => {
-      setAnalysisResults({
-        score: 78,
-        strengths: [
-          'Clear professional experience section',
-          'Good use of action verbs',
-          'Relevant skills highlighted'
-        ],
-        improvements: [
-          'Add more quantifiable achievements',
-          'Consider adding a summary section',
-          'Improve formatting consistency'
-        ],
-        keywords: ['React', 'JavaScript', 'UI/UX', 'Project Management', 'Agile'],
-        sections: {
-          contact: { score: 90, feedback: 'Contact information is complete' },
-          education: { score: 85, feedback: 'Education details are well presented' },
-          experience: { score: 75, feedback: 'Good structure but add more metrics' },
-          skills: { score: 80, feedback: 'Relevant skills included' },
-          projects: { score: 65, feedback: 'Projects need more details' }
-        }
+    const token = localStorage.getItem('token');
+  
+    try {
+      const formData = new FormData();
+      formData.append('resume', file);
+  
+      const response = await fetch('/api/resume/upload-resume', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
-      setIsAnalyzing(false);
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to upload resume');
+      }
+  
+      // console.log('✅ Resume uploaded:', result.resumeUrl);
+      const resumeUrl = result.resumeUrl;
+      const atsResponse = await fetch('/api/resume/ats-score', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ resumeUrl }),
+      });
+  
+      const atsData = await atsResponse.json();
+      if (!atsResponse.ok) throw new Error(atsData.message);
+  
+      const score = parseInt(atsData.atsScore, 10);
+      // console.log('🎯 ATS Score:', score);
+
+      const feedbackRes = await fetch('/api/resume/resume-feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ resumeUrl }),
+      });
+      
+      const feedbackData = await feedbackRes.json();
+      if (!feedbackRes.ok) {
+        throw new Error(feedbackData.message || 'Failed to fetch resume feedback.');
+      }
+      
+      // console.log('🧠 Raw Feedback:', feedbackData.feedback);
+      
+      // 4. Parse LLM feedback into usable sections
+      const strengths = [];
+      const improvements = [];
+
+      const lines = feedbackData.feedback.split('\n');
+      let currentSection = '';
+
+      for (let line of lines) {
+        line = line.trim();
+
+        if (line.toLowerCase().startsWith('strength')) {
+          currentSection = 'strengths';
+          continue;
+        } else if (line.toLowerCase().startsWith('improvement')) {
+          currentSection = 'improvements';
+          continue;
+        }
+
+        // Check for numbered list: "1. Text..." or "1) Text..."
+        const match = line.match(/^\d+[\.\)]\s+(.*)/);
+        if (match) {
+          const item = match[1].trim();
+          if (currentSection === 'strengths') strengths.push(item);
+          if (currentSection === 'improvements') improvements.push(item);
+        }
+      }
+      const tipsRes = await fetch('/api/resume/resume-improvement-tips', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ resumeUrl }),
+      });
+      
+      const tipsData = await tipsRes.json();
+      if (!tipsRes.ok) {
+        throw new Error(tipsData.message || 'Failed to fetch improvement tips.');
+      }
+      
+      // console.log("📌 Improvement Tips:", tipsData.improvementTips);
+      
+      // 6. Convert numbered tips to keywords array
+      const keywords = [];
+      const tipsLines = tipsData.improvementTips.split('\n');
+      for (let line of tipsLines) {
+        const match = line.trim().match(/^\d+[\.\)]\s+(.*)/);
+        if (match) {
+          keywords.push(match[1].trim());
+        }
+      }
+  
+      // 3. Update frontend with the result
+      setAnalysisResults((prev) => ({
+        ...prev,
+        score,
+        strengths,
+        improvements,
+        keywords,
+      }));
+  
       setAnalysisComplete(true);
-    }, 2000);
+  
+    } catch (err) {
+      console.error('❌ Upload failed:', err);
+      alert('Resume upload failed. Please try again.');
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
+  
   
   // Reset state for reupload
   const handleReupload = () => {
@@ -135,7 +227,7 @@ export default function ResumeAnalysisPage() {
         <div className="space-y-6">
           <AnalysisStatus 
             file={file}
-            isAnalyzing={isAnalyzing}
+            analysisComplete={analysisComplete}
             handleReupload={handleReupload}
           />
           

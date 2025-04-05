@@ -34,7 +34,7 @@ const OverviewTab = ({ score }) => {
               </svg>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          {/* <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <p className="font-semibold">Resume Length</p>
               <p>2 pages (Appropriate)</p>
@@ -43,7 +43,7 @@ const OverviewTab = ({ score }) => {
               <p className="font-semibold">ATS Compatibility</p>
               <p>85% (Good)</p>
             </div>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>

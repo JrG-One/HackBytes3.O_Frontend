@@ -1,4 +1,3 @@
-
 // src/components/ResumeAnalyzer/ResultTabs/FeedbackTab.jsx
 import React from 'react';
 import { CheckCircle, AlertCircle } from 'lucide-react';
