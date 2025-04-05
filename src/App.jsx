@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ResourcePage from "./pages/ResourcePage";
 import InterviewForm from "./pages/InterviewFormPage";
 import ResumeAnalysisPage from "./pages/ResumeAnalysisPage";
+import InterviewPage from "./pages/InterviewPage";
 
 
 import {
@@ -98,6 +99,14 @@ function App() {
           element: (
             <PrivateRoute>
               <ResumeAnalysisPage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "interview",
+          element: (
+            <PrivateRoute>
+              <InterviewPage />
             </PrivateRoute>
           ),
         },

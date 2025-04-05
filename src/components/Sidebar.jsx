@@ -36,6 +36,11 @@ const items = [
     url: "/analyser",
     icon: GraduationCap,
   },
+  {
+    title: "Inter",
+    url: "/interview",
+    icon: GraduationCap,
+  },
 ];
 
 export function AppSidebar({ open }) {
